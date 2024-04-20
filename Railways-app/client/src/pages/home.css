@@ -8,20 +8,6 @@ body {
     font-style: normal;
 }
 
-.jersey-15-regular {
-    font-family: "Jersey 15", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-}
-
-
-.work-sans-regular {
-    font-family: "Work Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 200;
-    font-style: normal;
-}
-
 .welcome {
     color: white;
     font-size: 2rem;
@@ -34,36 +20,23 @@ body {
     font-family: "Jersey 10 Charted", sans-serif;
 }
 
-.map-container {
+.map-container{
     position: relative;
-    height: 600px;
+    height: 600px;  
     width: 100vw;
     background-color: #4bcca6;
 }
 
-.map-container img {
+.map-container img{
     left: 28vw;
     position: absolute;
     top: 4px;
 }
 
-.map-container button {
+.map-container button{
     left: 365px;
     position: absolute;
     top: 4px;
 }
 
-.about {
-    color: white;
-    font-size: 4rem;
-    text-align: center;
-    font-family: "Jersey 15", sans-serif;
-    margin-top: 25px;
-}
 
-.about p {
-    margin: 0 77px;
-    font-size: 18px;
-    font-family: "Work Sans", sans-serif;
-    margin-bottom: 50px;
-}
