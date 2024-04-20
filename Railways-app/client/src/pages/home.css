@@ -1,0 +1,42 @@
+body {
+    background-color: rgb(37, 37, 40);
+}
+
+.jersey-10 charted-regular {
+    font-family: "Jersey 10 Charted", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.welcome {
+    color: white;
+    font-size: 2rem;
+    /* margin-top: 2rem; */
+    text-align: center;
+    /* padding-top: 3rem; */
+    margin: 20px auto auto;
+    padding: 0;
+    font-size: 60px;
+    font-family: "Jersey 10 Charted", sans-serif;
+}
+
+.map-container{
+    position: relative;
+    height: 600px;  
+    width: 100vw;
+    background-color: #4bcca6;
+}
+
+.map-container img{
+    left: 28vw;
+    position: absolute;
+    top: 4px;
+}
+
+.map-container button{
+    left: 365px;
+    position: absolute;
+    top: 4px;
+}
+
+

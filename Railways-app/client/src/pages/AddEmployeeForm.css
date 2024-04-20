@@ -1,0 +1,27 @@
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    color: black;
+}
+
+.form-field {
+    margin-bottom: 1em;
+}
+
+.form-field label {
+    margin-right: 1em;
+}
+
+
+.message {
+    margin-top: 1em;
+    color: red;
+}
