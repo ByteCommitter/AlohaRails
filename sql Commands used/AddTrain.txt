@@ -1,0 +1,93 @@
+AddTrain...
+
+#Train:
+ 1. Train_ID (Primary Key)
+ 2. Name
+ 3. Status
+ 4. Type
+
+#Coaches:
+ 1.Coach Type[ of each type, ac and non ac] {drop down list...}
+ 2.No. of A/c Coaches [A drop down list] of 0-15
+ 3.No. of Non A/c Coaches [A drop down list] of 0-20
+ 3.Train Id as Foreign key...
+
+We limit the number of coaches possible on each type of train electric and diesel
+we limit the number of ac coaches and non ac coaches possible as per the equations given below...
+
+we input all details at once in the page....
+when we do so we input the data into the appropriate tables and then we check that for a train ID, we check if it's diesel or electric
+ if its diesel, we have a function such that (10*(no.of AC coaches)+ 5*(no.of nonA/c coaches) <=100)...
+ if its an electric, we have a function such that (10*(no.of AC coaches)+ 5*(no.of nonA/c coaches) <=150)...
+
+This would be our first trigger...
+
+if it exceeds a particular value, we display a msg saying not possible, and that they would have to reconfigure the number of coaches...
+
+
+
+use AlohaRailways;
+
+
+CREATE TABLE Train (
+    Train_ID INT PRIMARY KEY,
+    Name VARCHAR(255),
+    Status VARCHAR(255),
+    Type ENUM('Diesel', 'Electric')
+);
+
+CREATE TABLE Coaches (
+    Coach_ID INT AUTO_INCREMENT PRIMARY KEY,
+    Coach_Type ENUM('AC', 'Non-AC'),
+    No_AC INT CHECK (No_AC BETWEEN 0 AND 15),
+    No_NAC INT CHECK (No_NAC BETWEEN 0 AND 20),
+    Train_ID INT,
+    FOREIGN KEY (Train_ID) REFERENCES Train(Train_ID)
+);
+
+
+DROP TRIGGER IF EXISTS check_coach_capacity;
+DELIMITER //
+CREATE PROCEDURE InsertTrainAndCoaches(IN p_Train_ID INT, IN p_Name VARCHAR(255), IN p_Status VARCHAR(255), IN p_Type ENUM('Diesel', 'Electric'), IN p_Coach_Type ENUM('AC', 'Non-AC'), IN p_No_AC INT, IN p_No_NAC INT)
+BEGIN
+  DECLARE EXIT HANDLER FOR SQLEXCEPTION
+  BEGIN
+    -- Rollback the transaction on error
+    ROLLBACK;
+  END;
+
+  -- Start a new transaction
+  START TRANSACTION;
+
+  -- Insert the new train
+  INSERT INTO Train (Train_ID, Name, Status, Type) VALUES (p_Train_ID, p_Name, p_Status, p_Type);
+
+  -- Insert the coaches
+  INSERT INTO Coaches (Coach_Type, No_AC, No_NAC, Train_ID) VALUES (p_Coach_Type, p_No_AC, p_No_NAC, p_Train_ID);
+
+  -- Check the capacity
+  IF p_Type = 'Diesel' AND (10 * p_No_AC + 5 * p_No_NAC > 100) THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Capacity exceeded for Diesel train';
+  ELSEIF p_Type = 'Electric' AND (10 * p_No_AC + 5 * p_No_NAC > 150) THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Capacity exceeded for Electric train';
+  END IF;
+
+  -- Commit the transaction
+  COMMIT;
+END;//
+DELIMITER ;
+
+
+--CALL InsertTrainAndCoaches(1, 'Train 1', 'Running', 'Diesel', 'AC', 11, 0); -- This should fail
+--CALL InsertTrainAndCoaches(2, 'Train 2', 'Running', 'Electric', 'AC', 16, 0); -- This should fail
+--CALL InsertTrainAndCoaches(3, 'Train 3', 'Running', 'Diesel', 'AC', 10, 0); -- This should succeed
+--CALL InsertTrainAndCoaches(4, 'Train 4', 'Running', 'Electric', 'AC', 15, 0); -- This should succeed
+
+--Test Cases are functional...
+
+CALL InsertTrainAndCoaches(1, 'Aloha Express', 'Running', 'Diesel', 'AC', 5, 5);
+CALL InsertTrainAndCoaches(2, 'Hawaii Island Hopper', 'Running', 'Electric', 'AC', 7, 8);
+CALL InsertTrainAndCoaches(3, 'Pacific Surfliner', 'Running', 'Diesel', 'Non-AC', 4, 6);
+CALL InsertTrainAndCoaches(4, 'Maui Coastal Cruiser', 'Running', 'Electric', 'Non-AC', 6, 9);
+CALL InsertTrainAndCoaches(5, 'Honolulu Hustler', 'Running', 'Diesel', 'AC', 8, 2);
+CALL InsertTrainAndCoaches(6, 'Kauai Cliffhanger', 'Running', 'Electric', 'AC', 10, 5);
