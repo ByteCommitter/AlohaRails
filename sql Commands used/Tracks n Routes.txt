@@ -1,0 +1,59 @@
+Tracks n Routes
+//we need to create Tracks...
+//we need to allow only specific routes on the tracks, if a route is generated, it needs to checked
+individually with everything and then added to database...
+
+//This would be our second trigger...
+
+#Routes:
+ 1. Route_ID (Primary Key)
+ 2. Route
+ 3. From_station-ID (foreign key)
+ 4. To_station-ID (foreign key)
+
+#Track:
+
+
+these are just way past my requirements and needs... so I' come up with this... I hard code the tracks , we ahve 7 stations on an island, named ALoha and I have some tracks connectig a few stations, namely... we need to allow only specific routes on the tracks, if a route is generated, it needs to checked individually with everything and then added to database...
+
+so if our track connects two stations say 7 and 3, it becomes 73 and 37, both tracks are valid... Now we have our table routes, Routes are defined by the station it passes by... 7645 passes through stations 7,6,4,5 in the order.... and would need tracks 76, and 64 and 45.... Do I create a table called tracks? and hard push the values of tracks into it... I was thinking of creating a table routes like this: #Routes:
+
+Route_ID (Primary Key)
+Route
+From_station-ID
+To_station-ID with a trigger checking the route whether its valid or not by running through and checking for the tracks
+
+
+CREATE TABLE Routes (
+    Route_ID INT PRIMARY KEY,
+    Route VARCHAR(255),
+    From_station_ID INT,
+    To_station_ID INT
+);
+
+DELIMITER $$
+CREATE TRIGGER check_route_before_insert
+BEFORE INSERT ON Routes
+FOR EACH ROW
+BEGIN
+    DECLARE track VARCHAR(2);
+    DECLARE i INT;
+    DECLARE valid_route BOOLEAN DEFAULT TRUE;
+
+    SET i = 1;
+
+    WHILE i < CHAR_LENGTH(NEW.Route) DO
+        SET track = SUBSTRING(NEW.Route, i, 2);
+
+        IF FIND_IN_SET(track, '37,73,76,67,46,64,14,41,45,54,52,25') = 0 THEN
+            SET valid_route = FALSE;
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Invalid route';
+        END IF;
+
+        SET i = i + 1;
+    END WHILE;
+END$$
+DELIMITER ;
+
+
+--
