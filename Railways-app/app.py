@@ -14,9 +14,7 @@ def get_db_cursor():
     )
     return db, db.cursor()
 
-
-
-@app.route('/addtrain',  methods=['GET', 'POST'])
+@app.route('/addtrain',  methods=['POST'])
 def add_train():
     db, cursor = get_db_cursor()
     # Get train data from the JSON body
@@ -25,30 +23,35 @@ def add_train():
     Name = data['Name']
     Train_Status = data['Train_Status']
     Type = data['Type']
+    No_AC = int(data['No_AC'])  # Convert to integer
+    No_NAC = int(data['No_NAC'])  # Convert to integer
 
-    
+    # Hardcode Coach_Type to 'AC'
+    Coach_Type = 'AC'
 
-    # Check if Train_ID already exists
-    cursor.execute("SELECT * FROM train WHERE Train_ID = %s", (Train_ID,))
-    if cursor.fetchone() is not None:
+    # Check if train capacity is exceeded
+    if No_AC + No_NAC > 20:
+        return 'Train capacity exceeded!', 400
+
+    try:
+        # Call the stored procedure
+        cursor.callproc('InsertTrainAndCoaches', [Train_ID, Name, Train_Status, Type, Coach_Type, No_AC, No_NAC])
+
+        # Commit the changes
+        db.commit()
+
+    except mysql.connector.Error as err:
+        if err.errno == 1062:  # Duplicate entry error
+            return 'Train Number already in Use!', 400
+        elif err.errno == 1644:  # Custom MySQL error for capacity exceeded
+            return 'Train capacity exceeded!', 400
+        else:
+            raise  # Re-raise the exception if it's not a duplicate entry error or a capacity exceeded error
+
+    finally:
+        # Close the cursor and connection
         cursor.close()
         db.close()
-        return 'Train ID already exists!', 400
-
-    # Create the SQL query
-    add_train_query = ("INSERT INTO train "
-                       "(Train_ID, Name, Train_Status, Type) "
-                       "VALUES (%s, %s, %s, %s)")
-
-    # Execute the query
-    cursor.execute(add_train_query, (Train_ID, Name, Train_Status, Type))
-    
-    # Commit the changes
-    db.commit()
-
-    # Close the cursor and connection
-    cursor.close()
-    db.close()
 
     return 'Train added successfully!', 200
 
@@ -65,8 +68,6 @@ def add_employee():
     Designation = data['Designation']
     Station_ID = data['Station_ID']
 
-    
-
     # Create the SQL query
     add_employee_query = ("INSERT INTO employee "
                           "(First_Name, Last_Name, Contact_Details, Shift, Designation, Station_ID) "
@@ -79,8 +80,6 @@ def add_employee():
     db.commit()
 
     return 'Employee added successfully!', 200
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)

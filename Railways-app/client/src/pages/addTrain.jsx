@@ -1,66 +1,85 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 function AddTrainForm() {
-  const [trainId, setTrainId] = useState('');
-  const [trainName, setTrainName] = useState('');
-  const [trainStatus, setTrainStatus] = useState('');
-  const [trainType, setTrainType] = useState('');
-  const [trainCoaches, setTrainCoaches] = useState('');
+  const [trainData, setTrainData] = useState({
+    Train_ID: '',
+    Name: '',
+    Train_Status: '',
+    Type: '',
+    No_AC: '',
+    No_NAC: ''
+  });
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-  
-    const response = await fetch('http://localhost:5000/addtrain', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            Train_ID: trainId,
-            Name: trainName,
-            Train_Status: trainStatus,
-            Type: trainType,
-        }),
+  const handleChange = (e) => {
+    setTrainData({
+      ...trainData,
+      [e.target.name]: e.target.value
     });
-  
-    const data = await response.text();
-  
-    if (response.ok) {
-      alert('Train added successfully!');
-    } else {
-      alert(data);
-    }
   };
-  
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios.post('http://localhost:5000/addtrain', trainData)
+      .then(response => {
+        alert(response.data);
+      })
+      .catch(error => {
+        if (error.response) {
+          if (error.response.status === 400) {
+            if (error.response.data.includes('Duplicate entry')) {
+              alert('Train Number already in Use!');
+            } else if (error.response.data.includes('capacity exceeded')) {
+              alert('Train capacity exceeded!');
+            } else {
+              alert(error.response.data);
+            }
+          } else {
+            alert('An error occurred while adding the train.');
+          }
+        } else if (error.request) {
+          alert('No response received from server.');
+        } else {
+          alert('Error', error.message);
+        }
+      });
+  };
+
   return (
-    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+    <form onSubmit={handleSubmit}>
       <label>
         Train ID:
-        <input type="text" value={trainId} onChange={(e) => setTrainId(e.target.value)} required />
+        <input type="text" name="Train_ID" onChange={handleChange} />
       </label>
       <label>
-        Train Name:
-        <input type="text" value={trainName} onChange={(e) => setTrainName(e.target.value)} required />
+        Name:
+        <input type="text" name="Name" onChange={handleChange} />
       </label>
       <label>
         Train Status:
-        <input type="text" value={trainStatus} onChange={(e) => setTrainStatus(e.target.value)} required />
+        <input type="text" name="Train_Status" onChange={handleChange} />
       </label>
       <label>
-        Train Type:
-        <select value={trainType} onChange={(e) => setTrainType(e.target.value)} required>
-          <option value="electrical">Electrical</option>
-          <option value="diesel">Diesel</option>
+        Type:
+        <select name="Type" onChange={handleChange}>
+          <option value="">Select</option>
+          <option value="Diesel">Diesel</option>
+          <option value="Electric">Electric</option>
         </select>
       </label>
       <label>
-        Train Coaches:
-        <select value={trainCoaches} onChange={(e) => setTrainCoaches(e.target.value)} required>
-          <option value="A/C">A/C</option>
-          <option value="Non A/C">Non A/C</option>
+        No. of AC Coaches:
+        <select name="No_AC" onChange={handleChange}>
+          {[...Array(21)].map((_, i) => <option key={i} value={i}>{i}</option>)}
         </select>
       </label>
-      <button type="submit">Add Train</button>
+      <label>
+        No. of Non-AC Coaches:
+        <select name="No_NAC" onChange={handleChange}>
+          {[...Array(21)].map((_, i) => <option key={i} value={i}>{i}</option>)}
+        </select>
+      </label>
+      <input type="submit" value="Submit" />
     </form>
   );
 }
