@@ -1,39 +1,29 @@
-form{
-    margin-left: 620px;
+.page{
+    /* margin-left: 620px; */
     margin-top: 143px;
-    display: flex;
-    flex-direction: column;
 }
-.sideheading2{
+.sideheading{
     color:white;
     margin-bottom:15px;
     
 }
 
-.sideheading2 input{
+.sideheading input{
+    margin-left: 25px;
+
+}
+
+.sideheading select{
     margin-left: 25px;
     border-radius: 7px;
     color:white;
     background-color: #515151;
     border:1px solid #515151;
-
 }
 
-.sideheading2 select{
-    margin-left: 25px;
+.page input{
     border-radius: 7px;
     color:white;
     background-color: #515151;
     border:1px solid #515151;
-}
-
-input{
-    border-radius: 7px;
-    color:white;
-    background-color: #515151;
-    border:1px solid #515151;
-}
-
-input[type="submit"] {
-    width: 80px; /* Or whatever width you want */
 }

@@ -39,4 +39,14 @@ body {
     top: 4px;
 }
 
+.about{
+    color: white;
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    text-align: center;
+}
 
+.about p{
+    font-size: 18px;
+    padding: 15px 35px;
+}

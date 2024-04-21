@@ -2,6 +2,9 @@
     text-align: center;
     color: aliceblue;
     margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .form{
@@ -11,7 +14,37 @@
 }
 
 .form input{
-    margin: 10px;
+    margin-bottom: 20px;
     height: 60px;
     width: 300px;
+}
+
+.form button{
+    border-radius: 10px;
+    color:white;
+    background-color: #515151;
+    border:1px solid #515151;
+    padding:5px;
+    width: 75px;
+}
+
+.btn{
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px;
+    width: 300px;
+    height: 90px;
+    align-items: center;
+}
+
+.form label{
+    color:white;
+}
+
+.Schedule h4{
+    margin-bottom: 20px;
+}
+
+.Schedule h6{
+    margin-top: 20px;
 }

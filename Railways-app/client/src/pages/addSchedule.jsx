@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './addSchedule.css';
 
 function AddScheduleForm() {
   const [scheduleData, setScheduleData] = useState({
@@ -44,33 +45,35 @@ function AddScheduleForm() {
   };
 
   return (
+    <>
     <form onSubmit={handleSubmit}>
-      <label>
-        Departure Time:
-        <input type="time" name="Departure_Time" onChange={handleChange} required />
-      </label>
-      <label>
-        Arrival Time:
-        <input type="time" name="Arrival_Time" onChange={handleChange} required />
-      </label>
-      <label>
-        Train ID:
-        <input type="number" name="Train_ID" onChange={handleChange} required />
-      </label>
-      <label>
-        Route:
-        <input type="text" name="Route" onChange={handleChange} required />
-      </label>
-      <label>
-        From Station ID:
-        <input type="number" name="From_station_ID" onChange={handleChange} required />
-      </label>
-      <label>
-        To Station ID:
-        <input type="number" name="To_station_ID" onChange={handleChange} required />
-      </label>
-      <input type="submit" value="Submit" />
+        <label className='sideheading2'>
+            Departure Time:
+            <input type="time" name="Departure_Time" onChange={handleChange} required />
+        </label>
+        <label className='sideheading2'>
+            Arrival Time:
+            <input type="time" name="Arrival_Time" onChange={handleChange} required />
+        </label>
+        <label className='sideheading2'>
+            Train ID:
+            <input type="number" name="Train_ID" onChange={handleChange} required />
+        </label>
+        <label className='sideheading2'>
+            Route:
+            <input type="text" name="Route" onChange={handleChange} required />
+        </label>
+        <label className='sideheading2'>
+            From Station ID:
+            <input type="number" name="From_station_ID" onChange={handleChange} required />
+        </label>
+        <label className='sideheading2'>
+            To Station ID:
+            <input type="number" name="To_station_ID" onChange={handleChange} required />
+        </label>
+        <input type="submit" value="Submit" />
     </form>
+</>
   );
 }
 

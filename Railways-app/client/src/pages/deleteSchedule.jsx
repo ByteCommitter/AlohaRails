@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './deleteSchedule.css';
 
 const DeleteScheduleForm = () => {
     const [trainID, setTrainID] = useState('');
@@ -16,13 +17,15 @@ const DeleteScheduleForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Train ID:
-                <input type="number" value={trainID} onChange={(e) => setTrainID(e.target.value)} required />
-            </label>
-            <button type="submit">Delete Schedule</button>
-        </form>
+        <div className="delsch">
+            <form onSubmit={handleSubmit}>
+                <label>
+                    Train ID:
+                    <input type="number" value={trainID} onChange={(e) => setTrainID(e.target.value)} required />
+                </label>
+                <button type="submit">Delete Schedule</button>
+            </form>
+        </div>
     );
 };
 

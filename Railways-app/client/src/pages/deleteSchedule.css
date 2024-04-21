@@ -1,0 +1,22 @@
+.delsch{
+    display: flex;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+.delsch input{
+    color: white;
+    margin-left : 20px;
+    margin-bottom: 20px;
+}
+
+.delsch button{
+    margin-top: 20px;
+    padding: 5px 10px;
+    border: none;
+    background-color: #f1356d;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 20px;
+}

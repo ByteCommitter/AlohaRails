@@ -1,0 +1,23 @@
+.trainmanager{
+    color:white;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 20px;
+}
+
+.btn{
+   display:flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn button{
+    border-radius: 7px;
+    color:white;
+    background-color: #515151;
+    border:1px solid #515151;
+    padding:10px;
+}

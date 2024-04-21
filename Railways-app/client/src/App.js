@@ -11,6 +11,8 @@ import DeleteScheduleForm from './pages/deleteSchedule.jsx';
 import GetSchedule from './pages/getSchedule.jsx'; // Import the GetSchedule component
 import StationDetails from './pages/getStation.jsx'; // Import the StationDetails component
 import DeleteEmployee from './pages/delEmp.jsx'; // Import the DeleteEmployee component
+import Managetrains from './pages/Managetrain.jsx';
+import Manageemp from './pages/Manageemp.jsx';
 
 function App() {
     return (
@@ -27,6 +29,10 @@ function App() {
                 <Route path="/getschedule" element={<GetSchedule />} /> {/* Add this line */}
                 <Route path="/stationdetails" element={<StationDetails />} /> {/* Add this line */}
                 <Route path="/deleteemployee" element={<DeleteEmployee />} /> {/* Add this line */}
+                <Route path="/managetrain" element={<Managetrains />} />
+                <Route path="/manageemp" element={<Manageemp />} />
+                <Route path="/delemployee" element={<DeleteEmployee />} />
+
             </Routes>
         </Router>
     );

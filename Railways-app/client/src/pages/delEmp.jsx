@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './delEmp.css';
 
 function DeleteEmployee() {
     const [contactDetails, setContactDetails] = useState('');
@@ -26,15 +27,17 @@ function DeleteEmployee() {
     };
 
     return (
-        <div>
-            <input
-                type="text"
-                value={contactDetails}
-                onChange={e => setContactDetails(e.target.value)}
-                placeholder="Enter Contact Details"
-            />
-            <button onClick={deleteEmployee}>Delete Employee</button>
-        </div>
+        <>
+            <div className='delemp'>
+                <input
+                    type="text"
+                    value={contactDetails}
+                    onChange={e => setContactDetails(e.target.value)}
+                    placeholder="Enter Contact Details"
+                />
+                <button onClick={deleteEmployee}>Delete Employee</button>
+            </div>
+        </>
     );
 }
 

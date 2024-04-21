@@ -1,15 +1,15 @@
 .form-container {
+    padding: 0;
+    margin: 0;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    /* align-items: center; */
     height: 100vh;
 }
 
-form {
+.form {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    color: black;
 }
 
 .form-field {
@@ -17,9 +17,31 @@ form {
 }
 
 .form-field label {
+    color: white;
+
     margin-right: 1em;
 }
 
+.form-field input {
+    border-radius: 7px;
+    color:white;
+    background-color: #515151;
+    border:1px solid #515151;
+}
+
+.form-field select {
+    border-radius: 7px;
+    color:white;
+    background-color: #515151;
+    border:1px solid #515151;
+}
+
+.form-container input{
+    border-radius: 7px;
+    color:white;
+    background-color: #515151;
+    border:1px solid #515151;
+}
 
 .message {
     margin-top: 1em;

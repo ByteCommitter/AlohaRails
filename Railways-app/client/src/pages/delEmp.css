@@ -1,0 +1,22 @@
+.delemp{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.delemp input{
+    height: 32px;
+}
+
+.delemp button{
+    margin-top: 20px;
+    padding: 5px 10px;
+    border: none;
+    background-color: #f1356d;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 20px;
+}

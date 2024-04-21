@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './addTrain.css';
+
 
 function AddTrainForm() {
   const [trainData, setTrainData] = useState({
@@ -46,41 +48,52 @@ function AddTrainForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Train ID:
-        <input type="text" name="Train_ID" onChange={handleChange} />
-      </label>
-      <label>
-        Name:
-        <input type="text" name="Name" onChange={handleChange} />
-      </label>
-      <label>
-        Train Status:
-        <input type="text" name="Train_Status" onChange={handleChange} />
-      </label>
-      <label>
-        Type:
-        <select name="Type" onChange={handleChange}>
-          <option value="">Select</option>
-          <option value="Diesel">Diesel</option>
-          <option value="Electric">Electric</option>
-        </select>
-      </label>
-      <label>
-        No. of AC Coaches:
-        <select name="No_AC" onChange={handleChange}>
-          {[...Array(21)].map((_, i) => <option key={i} value={i}>{i}</option>)}
-        </select>
-      </label>
-      <label>
-        No. of Non-AC Coaches:
-        <select name="No_NAC" onChange={handleChange}>
-          {[...Array(21)].map((_, i) => <option key={i} value={i}>{i}</option>)}
-        </select>
-      </label>
-      <input type="submit" value="Submit" />
-    </form>
+    <>
+      <div className='page'>
+        <form onSubmit={handleSubmit}>
+
+          <label className='sideheading'>
+            Train ID
+            <input type="text" name="Train_ID" onChange={handleChange} />
+          </label>
+          <br />
+          <label className='sideheading'>
+            Name
+            <input type="text" name="Name" onChange={handleChange} />
+          </label>
+          <br />
+          <label className='sideheading'>
+            Train Status
+            <input type="text" name="Train_Status" onChange={handleChange} />
+          </label>
+          <br />
+          <label className='sideheading'>
+            Type
+            <select name="Type" onChange={handleChange}>
+              <option value="">Select</option>
+              <option value="Diesel">Diesel</option>
+              <option value="Electric">Electric</option>
+            </select>
+          </label>
+          <br />
+          <label className='sideheading'>
+            No. of AC Coaches
+            <select name="No_AC" onChange={handleChange}>
+              {[...Array(21)].map((_, i) => <option key={i} value={i}>{i}</option>)}
+            </select>
+          </label>
+          <br />
+          <label className='sideheading'>
+            No. of Non-AC Coaches
+            <select name="No_NAC" onChange={handleChange}>
+              {[...Array(21)].map((_, i) => <option key={i} value={i}>{i}</option>)}
+            </select>
+          </label>
+          <br />
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
+    </>
   );
 }
 
