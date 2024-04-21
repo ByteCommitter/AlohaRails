@@ -1,0 +1,6 @@
+DELIMITER //
+CREATE PROCEDURE GetSchedule(IN Train_ID INT)
+BEGIN
+    SELECT * FROM Schedule WHERE Train_ID = Train_ID;
+END //
+DELIMITER ;

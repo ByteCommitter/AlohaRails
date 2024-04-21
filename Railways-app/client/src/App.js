@@ -6,7 +6,9 @@ import Navbar from './pages/Navbar.jsx';
 import Schedule from './pages/schedule.jsx';
 import AddTrainForm from './pages/addTrain.jsx';
 import AddEmployeeForm from './pages/addEmp.jsx';
-import AddScheduleForm from './pages/addSchedule.jsx'; // Import the AddScheduleForm component
+import AddScheduleForm from './pages/addSchedule.jsx';
+import DeleteScheduleForm from './pages/deleteSchedule.jsx';
+import GetSchedule from './pages/getSchedule.jsx'; // Import the GetSchedule component
 
 function App() {
     return (
@@ -18,7 +20,9 @@ function App() {
                 <Route path="/schedules" element={<Schedule/>} />
                 <Route path="/addtrain" element={<AddTrainForm />} />
                 <Route path="/addemployee" element={<AddEmployeeForm />} />
-                <Route path="/addschedule" element={<AddScheduleForm />} /> {/* Add this line */}
+                <Route path="/addschedule" element={<AddScheduleForm />} />
+                <Route path="/deleteschedule" element={<DeleteScheduleForm />} />
+                <Route path="/getschedule" element={<GetSchedule />} /> {/* Add this line */}
             </Routes>
         </Router>
     );

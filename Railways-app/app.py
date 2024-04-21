@@ -1,6 +1,7 @@
 from flask import Flask, request
 import mysql.connector
 from flask_cors import CORS
+from flask import jsonify
 
 app = Flask(__name__)
 CORS(app)
@@ -116,6 +117,71 @@ def add_schedule():
 
     return 'Schedule added successfully!', 200
 
+
+@app.route('/deleteschedule', methods=['DELETE'])
+def delete_schedule():
+    db, cursor = get_db_cursor()
+    # Get Train_ID from the JSON body
+    data = request.get_json()
+    Train_ID = int(data['Train_ID'])  # Convert to integer
+
+    rows_affected = 0
+    try:
+        # Call the stored procedure
+        cursor.callproc('DeleteSchedule', [Train_ID, 0])
+
+        # Get the value of the OUT parameter
+        results = cursor.stored_results()
+        if results:
+            result = next(results, None)
+            if result:
+                rows_affected = result.fetchone()[0]
+
+        # Commit the changes
+        db.commit()
+
+    except mysql.connector.Error as err:
+        raise  # Re-raise the exception if any error occurs
+
+    finally:
+        # Close the cursor and connection
+        cursor.close()
+        db.close()
+
+    if rows_affected == 0:
+        return 'No schedule found with the given Train_ID!', 400
+    else:
+        return 'Schedule deleted successfully!', 200
+
+
+@app.route('/getschedule', methods=['GET'])
+def get_schedule():
+    db, cursor = get_db_cursor()
+    # Get Train_ID from the query parameters
+    Train_ID = request.args.get('Train_ID')
+    if Train_ID is not None:
+        Train_ID = int(Train_ID)  # Convert to integer
+
+    try:
+        # Execute the stored procedure
+        cursor.callproc('GetSchedule', [Train_ID])
+
+        # Fetch all the rows in a list of lists.
+        results = cursor.stored_results().fetchall()
+    except mysql.connector.Error as err:
+        raise  # Re-raise the exception if any error occurs
+
+    finally:
+        # Close the cursor and connection
+        cursor.close()
+        db.close()
+
+    if not results:
+        return 'No schedule found with the given Train_ID!', 400
+    else:
+        # Convert the results to a JSON response
+        schedule = [dict(zip(cursor.column_names, row)) for row in results]
+        return jsonify(schedule)
 
 if __name__ == '__main__':
     app.run(debug=True)

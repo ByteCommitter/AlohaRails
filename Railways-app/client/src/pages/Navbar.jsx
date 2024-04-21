@@ -29,6 +29,12 @@ const Navbar = () => {
                         <li className="nav-item active">
                             <Link className="nav-link" to="/addschedule"> Add Schedule </Link>
                         </li>
+                        <li className="nav-item active">
+                            <Link className="nav-link" to="/deleteschedule"> Delete Schedule </Link>
+                        </li>
+                        <li className="nav-item active">
+                            <Link className="nav-link" to="/getschedule"> Get Schedule </Link>
+                        </li>
                     </ul>
                 </div>
             </nav>
