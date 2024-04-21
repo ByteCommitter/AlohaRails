@@ -8,8 +8,8 @@ individually with everything and then added to database...
 #Routes:
  1. Route_ID (Primary Key)
  2. Route
- 3. From_station-ID (foreign key)
- 4. To_station-ID (foreign key)
+ 3. From_station-ID 
+ 4. To_station-ID 
 
 #Track:
 

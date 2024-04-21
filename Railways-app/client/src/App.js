@@ -4,9 +4,9 @@ import Home from './pages/home.jsx';
 import Station from './pages/stations.jsx';
 import Navbar from './pages/Navbar.jsx';
 import Schedule from './pages/schedule.jsx';
-import AddTrainForm from './pages/addTrain.jsx'; // Import the AddTrainForm component
+import AddTrainForm from './pages/addTrain.jsx';
 import AddEmployeeForm from './pages/addEmp.jsx';
-// import other components as needed
+import AddScheduleForm from './pages/addSchedule.jsx'; // Import the AddScheduleForm component
 
 function App() {
     return (
@@ -17,7 +17,8 @@ function App() {
                 <Route path="/stations" element={<Station/>} />
                 <Route path="/schedules" element={<Schedule/>} />
                 <Route path="/addtrain" element={<AddTrainForm />} />
-                <Route path="/addemployee" element={<AddEmployeeForm />} /> {/* Add this line */}
+                <Route path="/addemployee" element={<AddEmployeeForm />} />
+                <Route path="/addschedule" element={<AddScheduleForm />} /> {/* Add this line */}
             </Routes>
         </Router>
     );

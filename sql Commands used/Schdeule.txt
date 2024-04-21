@@ -1,0 +1,51 @@
+//Schedule
+//we need to create a procedure which gets the schedule of a particular train,
+once we enter the train ID...
+//
+
+#Train:
+ 1. Train_ID (Primary Key)
+ 2. Name
+ 3. Status
+ 4. Type
+
+
+#Station:
+ 1. Station_ID (Primary Key)
+ 2. Name
+ 3. No. of platforms
+ 4. Location
+ 5. Facilities
+
+
+#Schedule:[not wrt leaving each station] // this would be our weak Entity...
+ 1. Departure_Time[wrt leaving start point]
+ 2. Arrival_Time[wrt reaching destination]
+ 3. Train-ID (foreign key)
+ 4. Route-ID
+
+#Routes:
+ 1. Route_ID (Primary Key)
+ 2. Route
+ 3. From_station-ID 
+ 4. To_station-ID 
+
+
+
+//Schedule has add schedule, delete schedule and search for train....
+//Now, we are to create a page where we are able to add routes and schedule..
+
+//Under the add schedule button...
+We should be able to take in the fields from the user...
+of the tables routes and schedule...
+
+
+sql:
+
+//Delete Schedule
+
+//Get Schedule
+
+
+
+

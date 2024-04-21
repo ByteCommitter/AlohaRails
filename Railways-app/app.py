@@ -81,5 +81,41 @@ def add_employee():
 
     return 'Employee added successfully!', 200
 
+
+@app.route('/addschedule', methods=['POST'])
+def add_schedule():
+    db, cursor = get_db_cursor()
+    # Get schedule data from the JSON body
+    data = request.get_json()
+    Departure_Time = data['Departure_Time']
+    Arrival_Time = data['Arrival_Time']
+    Train_ID = int(data['Train_ID'])  # Convert to integer
+    Route = data['Route']
+    From_station_ID = int(data['From_station_ID'])  # Convert to integer
+    To_station_ID = int(data['To_station_ID'])  # Convert to integer
+
+    try:
+        # Call the stored procedure
+        cursor.callproc('InsertScheduleAndRoute', [Departure_Time, Arrival_Time, Train_ID, Route, From_station_ID, To_station_ID])
+
+        # Commit the changes
+        db.commit()
+
+    except mysql.connector.Error as err:
+        if err.errno == 1062:  # Duplicate entry error
+            return 'Schedule already exists!', 400
+        elif err.errno == 1452:  # Foreign key constraint fails error
+            return 'Invalid Train ID! Please Try again', 400
+        else:
+            raise  # Re-raise the exception if it's not a duplicate entry error or a foreign key constraint fails error
+
+    finally:
+        # Close the cursor and connection
+        cursor.close()
+        db.close()
+
+    return 'Schedule added successfully!', 200
+
+
 if __name__ == '__main__':
     app.run(debug=True)
