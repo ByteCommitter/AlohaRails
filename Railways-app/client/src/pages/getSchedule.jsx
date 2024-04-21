@@ -7,11 +7,15 @@ const GetSchedule = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        console.log('Train_ID:', trainID);  // Log the Train_ID
         try {
-            const response = await axios.get(`/getschedule?Train_ID=${Train_ID}`);
+            const response = await axios.get(`http://localhost:5000/getschedule?Train_ID=${trainID}`);
+            console.log('Response data:', response.data);  // Log the response data
             setSchedule(response.data);
         } catch (error) {
             console.error('Error fetching schedule:', error);
+            // Set the schedule state to the error message
+            setSchedule([{ error: error.response.data }]);
         }
     };
 
@@ -25,7 +29,7 @@ const GetSchedule = () => {
                 </label>
                 <button type="submit">Get Schedule</button>
             </form>
-            {schedule && (
+            {schedule ? (
                 <table>
                     <thead>
                         <tr>
@@ -44,6 +48,8 @@ const GetSchedule = () => {
                         ))}
                     </tbody>
                 </table>
+            ) : (
+                <p>No schedule data available.</p>
             )}
         </div>
     );

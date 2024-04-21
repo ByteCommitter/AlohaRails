@@ -1,0 +1,34 @@
+Station Details...
+
+Once we click on a station,
+we should get details about the station directly from the database...
+
+//we should We should also get the train IDs/ train names that run through the station, we can get this by running
+through each route in the routes table and checking if the station no is present in the station
+
+
+#Station:
+ 1. Station_ID (Primary Key)
+ 2. Name
+ 3. No. of platforms
+ 4. Location
+ 5. Facilities
+
+
+#Routes:
+ 1. Route_ID (Primary Key)
+ 2. Route
+ 3. From_station-ID (foreign key)
+ 4. To_station-ID (foreign key)
+
+
+I think I might have to create a procedure for this one... So my intent is to give input of the station number which in our case would be 1 to 7.... Once we enter the station, we should get details about the station directly from the database... The station has the following attributes: #Station:
+
+Station_ID (Primary Key)
+Name
+No. of platforms
+Location
+Facilities we need to create the table Station first...
+Also apart from getting and displaying the above station info, I should get all the trainIDs and trainNames passing through this station.. we can get this by running through each route in the routes table and checking if the station no is present in the station
+
+the routes table has the attribute route which could be of the form 7645, and if the station is 7, it should display the name and ID of the train.... So for station 7, all rows in routes table have t be checked wherein routes attribute has 7 in it or not...
