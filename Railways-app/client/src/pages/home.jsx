@@ -1,7 +1,7 @@
 import React from 'react';
 import './home.css';
 import Modal from 'react-modal';
-import map from '../images/map.png';
+import map from '../images/map.jpg';
 
 function Home() {
   return (
