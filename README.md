@@ -1,5 +1,5 @@
 This project was designed to create a database management system for the Railway company located in the remote island of Aloha.
-This is railway management system designed for the admins of the railway company, whihc allows them to create new routes, manage trains and employees.
+This is railway management system designed for the admins of a virtual railway company in the island of Aloha, which would allow them to create new routes, manage trains and employees, created as part of our course work.
 
 Installation and Running:
 Download the sql files and run the on the MySQL workbench.
